@@ -9,21 +9,23 @@ class TelaPrincipal extends StatelessWidget {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.only(left: 40, right: 40),
+        margin: EdgeInsets.only(left: 60, right: 60),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: double.infinity,
               padding: EdgeInsets.only(top: 20, bottom: 20),
-              child: ElevatedButton(
-                  child: Text('Login'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TelaLogin()),
-                    );
-                  }),
+              child: ElevatedButton(                
+                child: Text('Login'),
+                style: Theme.of(context).elevatedButtonTheme.style,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaLogin()),
+                  );
+                },
+              ),
             ),
             Container(
               width: double.infinity,

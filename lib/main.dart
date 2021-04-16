@@ -24,9 +24,12 @@ void main() {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue[300],
+          primary: Colors.blue[300], 
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          )         
         ),
-      ),
+      ),  
     ),
     home: TelaPrincipal(),
   ));
