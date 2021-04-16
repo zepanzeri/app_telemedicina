@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class TelaLogin extends StatefulWidget {
+class TelaCriarConta extends StatefulWidget {
   @override
-  _TelaLoginState createState() => _TelaLoginState();
+  _TelaCriarContaState createState() => _TelaCriarContaState();
 }
 
-class _TelaLoginState extends State<TelaLogin> {
+class _TelaCriarContaState extends State<TelaCriarConta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +16,14 @@ class _TelaLoginState extends State<TelaLogin> {
             Navigator.pop(context);
           },
         ),
-        title: Text('Login', style: Theme.of(context).textTheme.headline1),
+        title: Text('Criar conta', style: Theme.of(context).textTheme.headline1),
         automaticallyImplyLeading: false,
       ),
       body: Container(
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text('Tela de Login'),
+            Text('Tela Criar Conta'),
           ],
         ),
       ),

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TelaLogin extends StatefulWidget {
-  @override
-  _TelaLoginState createState() => _TelaLoginState();
-}
-
-class _TelaLoginState extends State<TelaLogin> {
+class TelaSobre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +11,15 @@ class _TelaLoginState extends State<TelaLogin> {
             Navigator.pop(context);
           },
         ),
-        title: Text('Login', style: Theme.of(context).textTheme.headline1),
+        title:
+            Text('Sobre', style: Theme.of(context).textTheme.headline1),
         automaticallyImplyLeading: false,
       ),
       body: Container(
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text('Tela de Login'),
+            Text('Tela Sobre'),
           ],
         ),
       ),
