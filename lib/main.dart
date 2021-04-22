@@ -1,3 +1,6 @@
+import 'package:app_telemedicina/TelaCriarConta.dart';
+import 'package:app_telemedicina/TelaLogin.dart';
+import 'package:app_telemedicina/TelaSobre.dart';
 import 'package:flutter/material.dart';
 
 import 'TelaPrincipal.dart';
@@ -26,11 +29,17 @@ void main() {
         style: ElevatedButton.styleFrom(
           primary: Colors.blue[300], 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          )         
+            borderRadius: BorderRadius.circular(10.0)
+          ),
         ),
       ),  
     ),
-    home: TelaPrincipal(),
+    initialRoute: '/tela_principal',
+    routes: {
+      '/tela_principal': (context) => TelaPrincipal(),
+      '/tela_login': (context) => TelaLogin(),
+      '/tela_criar_conta': (context) => TelaCriarConta(),
+      '/tela_sobre': (context) => TelaSobre()
+    },
   ));
 }

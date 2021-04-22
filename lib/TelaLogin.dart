@@ -1,3 +1,5 @@
+import 'package:app_telemedicina/widgets/app_bar_widget.dart';
+import 'package:app_telemedicina/widgets/login_form_widget.dart';
 import 'package:flutter/material.dart';
 
 class TelaLogin extends StatefulWidget {
@@ -9,23 +11,12 @@ class _TelaLoginState extends State<TelaLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.home, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Login', style: Theme.of(context).textTheme.headline1),
-        automaticallyImplyLeading: false,
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Text('Tela de Login'),
-          ],
-        ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBarWidget()),
+        
+      body: Center(
+        child: LoginFormWidget(),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
     );
