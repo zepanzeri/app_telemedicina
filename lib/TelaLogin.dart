@@ -15,9 +15,7 @@ class _TelaLoginState extends State<TelaLogin> {
         preferredSize: Size.fromHeight(50),
         child: AppBarWidget()),
         
-      body: Center(
-        child: LoginFormWidget(),
-      ),
+      body: LoginFormWidget(),
       backgroundColor: Theme.of(context).backgroundColor,
     );
   }

@@ -12,24 +12,52 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 200,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: login,
-            decoration: InputDecoration(
-              labelText: 'Login'
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(60),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: TextFormField(                            
+                controller: login,  
+                validator: (value){
+                  
+                },             
+                decoration: InputDecoration(
+                  labelText: 'Usuário',
+                  border: OutlineInputBorder(                  
+                    borderRadius: BorderRadius.circular(20)
+                  ),            
+                ),
+              ),
             ),
-          ),
-          TextFormField(
-            controller: senha,
-            decoration: InputDecoration(
-              labelText: 'Senha'
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: TextFormField(
+                controller: senha,
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  )
+                ),
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: Theme.of(context).elevatedButtonTheme.style,
+                child: Text('Entrar'),
+                onPressed: (){       
+                  print('${login.text} : ${senha.text}');
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
