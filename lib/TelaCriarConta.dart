@@ -14,14 +14,7 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
         preferredSize: Size.fromHeight(50),
         child: AppBarWidget()),
     
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Text('Tela Criar Conta'),
-          ],
-        ),
-      ),
+      body: Text('Sobre'),
       backgroundColor: Theme.of(context).backgroundColor,
     );
   }

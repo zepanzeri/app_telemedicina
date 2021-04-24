@@ -9,12 +9,23 @@ class TelaSobre extends StatelessWidget {
         preferredSize: Size.fromHeight(50),
         child: AppBarWidget()),
         
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Text('Tela Sobre'),
-          ],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 250,
+                height: 250,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/jose.jpg')
+                  )
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
