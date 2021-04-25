@@ -36,6 +36,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: TextFormField(
+                obscureText: true,
                 controller: senha,
                 decoration: InputDecoration(
                   labelText: 'Senha',
