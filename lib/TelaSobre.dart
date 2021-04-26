@@ -75,13 +75,48 @@ class _TelaSobreState extends State<TelaSobre> {
                 ),
               ),
               children:[
-                Text("Nome: José Henrique Panzeri Juns",
-                  style: TextStyle(
-                    fontSize:16, color: Colors.blue[300],
-                  )
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color:Theme.of(context).primaryColor,width: 3)
+                  ),
+                  child: Text("Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis. Quem num gosta di mé, boa gentis num é. Manduma pindureta quium dia nois paga. Mé faiz elementum girarzis, nisi eros vermeio.",
+                    style: TextStyle(
+                      fontSize:16, color: Theme.of(context).primaryColor)
+                  ),
                 ),
               ],
-            )
+            ),
+             ExpansionCard(
+              title: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Objetivo do App",
+                      style: TextStyle(
+                        fontSize:24,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
+                  ],
+                ),
+              ),
+              children:[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color:Theme.of(context).primaryColor,width: 3)
+                  ),
+                  child:Text("Mussum Ipsum, cacilds vidis litro abertis. Viva Forevis aptent taciti sociosqu ad litora torquent. Atirei o pau no gatis, per gatis num morreus. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. ",
+                    style: TextStyle(fontSize:16, color: Theme.of(context).primaryColor)
+                  ),
+                ),
+              ],
+            ),
+            
           ]),
         ),
       ),
