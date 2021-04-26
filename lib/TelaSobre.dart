@@ -11,6 +11,7 @@ class _TelaSobreState extends State<TelaSobre> {
   double _width = 100;
   double _height = 100;
   bool _isClicked = false;
+  Widget _widgetCardIcon = Icon(Icons.arrow_circle_down, color: Colors.blue[300], size: 30,);
 
   void _updateStateExpandir(){
     setState(() {
@@ -26,8 +27,7 @@ class _TelaSobreState extends State<TelaSobre> {
       }
     });
   }
-
-
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +60,15 @@ class _TelaSobreState extends State<TelaSobre> {
               ],              
             ),
              ExpansionCard(
+              onExpansionChanged: (bool expanded)=> {
+                setState((){
+                  if(expanded)
+                    this._widgetCardIcon = Icon(Icons.arrow_circle_up, color: Colors.blue[300], size: 30,);
+                  else
+                    this._widgetCardIcon  =Icon(Icons.arrow_circle_down, color: Colors.blue[300], size: 30,);
+                })               
+              },
+              trailing: _widgetCardIcon,
               title: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,9 +90,12 @@ class _TelaSobreState extends State<TelaSobre> {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color:Theme.of(context).primaryColor,width: 3)
                   ),
-                  child: Text("Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis. Quem num gosta di mé, boa gentis num é. Manduma pindureta quium dia nois paga. Mé faiz elementum girarzis, nisi eros vermeio.",
-                    style: TextStyle(
-                      fontSize:16, color: Theme.of(context).primaryColor)
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis. Quem num gosta di mé, boa gentis num é. Manduma pindureta quium dia nois paga. Mé faiz elementum girarzis, nisi eros vermeio.",
+                      style: TextStyle(
+                        fontSize:16, color: Theme.of(context).primaryColor)
+                    ),
                   ),
                 ),
               ],
