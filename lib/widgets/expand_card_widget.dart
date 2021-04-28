@@ -10,9 +10,7 @@ class ExpandCardWidget extends StatefulWidget {
   _ExpandCardWidgetState createState() => _ExpandCardWidgetState();
 }
 
-
 class _ExpandCardWidgetState extends State<ExpandCardWidget> {
-  
   Widget _widgetCardIcon = Icon(
     Icons.arrow_circle_down,
     color: Colors.blue[300],
@@ -56,13 +54,11 @@ class _ExpandCardWidgetState extends State<ExpandCardWidget> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
-              border:
-                  Border.all(color: Theme.of(context).primaryColor, width: 3)),
+              border:Border.all(color: Theme.of(context).primaryColor, width: 3)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(widget.corpo,
-                style: TextStyle(
-                    fontSize: 16, color: Theme.of(context).primaryColor)),
+              style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor)),
           ),
         ),
       ],
