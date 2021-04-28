@@ -1,9 +1,9 @@
-import 'package:app_telemedicina/TelaCriarConta.dart';
-import 'package:app_telemedicina/TelaLogin.dart';
-import 'package:app_telemedicina/TelaSobre.dart';
+import 'package:app_telemedicina/telas/TelaCriarConta.dart';
+import 'package:app_telemedicina/telas/TelaLogin.dart';
+import 'package:app_telemedicina/telas/TelaSobre.dart';
 import 'package:flutter/material.dart';
 
-import 'TelaPrincipal.dart';
+import 'telas/TelaPrincipal.dart';
 
 void main() {
   runApp(MaterialApp(
