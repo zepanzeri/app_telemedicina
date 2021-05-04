@@ -9,7 +9,7 @@ class TelaSobre extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50), child: AppBarWidget()),
+          preferredSize: Size.fromHeight(50), child: AppBarWidget('Sobre')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

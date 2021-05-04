@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class TelaPrincipal extends StatelessWidget {
-  String tituloAppBar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +19,9 @@ class TelaPrincipal extends StatelessWidget {
                     child: Text('Login'),
                     style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () {
-                      tituloAppBar = 'Login';
                       Navigator.pushNamed(
                         context,
-                        '/tela_login',
-                        arguments: tituloAppBar);
+                        '/tela_login');
                     },
                   ),
                 ),
@@ -38,11 +35,9 @@ class TelaPrincipal extends StatelessWidget {
                   child: ElevatedButton(
                       child: Text('Criar conta'),
                       onPressed: () {
-                        tituloAppBar = 'Criar conta';
                         Navigator.pushNamed(
                           context,
-                          '/tela_criar_conta',
-                          arguments: tituloAppBar);
+                          '/tela_criar_conta');
                       }),
                 ),
               ),
@@ -55,11 +50,9 @@ class TelaPrincipal extends StatelessWidget {
                   child: ElevatedButton(
                       child: Text('Sobre'),
                       onPressed: () {
-                        tituloAppBar = 'Sobre';
                         Navigator.pushNamed(
                           context,
-                          '/tela_sobre',
-                          arguments: tituloAppBar);
+                          '/tela_sobre');
                       }),
                 ),
               ),

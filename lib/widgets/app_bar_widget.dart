@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget {
+  final String titulo;
+  AppBarWidget(this.titulo);
+
   @override
-  Widget build(BuildContext context) {
-    final tituloAppBar = ModalRoute.of(context).settings.arguments;
+  Widget build(BuildContext context) { 
     return AppBar(
       leading: IconButton(
           icon: Icon(Icons.home, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
           },
         ),
-        title: Text(tituloAppBar, style: Theme.of(context).textTheme.headline1),
+        title: Text(this.titulo, style: Theme.of(context).textTheme.headline1),
         automaticallyImplyLeading: false,
     );
   }

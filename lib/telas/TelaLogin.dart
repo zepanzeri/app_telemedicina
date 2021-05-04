@@ -1,5 +1,5 @@
+import 'package:app_telemedicina/telas/TelaCriarConta.dart';
 import 'package:app_telemedicina/widgets/app_bar_widget.dart';
-import 'package:app_telemedicina/widgets/login_form_widget.dart';
 import 'package:flutter/material.dart';
 
 class TelaLogin extends StatefulWidget {
@@ -8,14 +8,72 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
+  var login = TextEditingController();
+  var senha = TextEditingController();
+  var loginFormKey = GlobalKey<FormState>();
+  
   @override
   Widget build(BuildContext context) {
+    final Usuario usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
-        child: AppBarWidget()),
+        child: AppBarWidget('Login')),
         
-      body: SingleChildScrollView(child: LoginFormWidget()),
+      body: SingleChildScrollView(
+        child: Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(60),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: TextFormField(                            
+                controller: login,  
+                //validator: (var value) => value != user.email ? 'Email ou senha errados' : null,           
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(                  
+                    borderRadius: BorderRadius.circular(20)
+                  ),            
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: TextFormField(
+                obscureText: true,
+                controller: senha,
+                //validator: (var senha) => senha != user.senha ? 'Email ou senha errados' : null,
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  )
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: Theme.of(context).elevatedButtonTheme.style,
+                child: Text('Entrar'),
+                onPressed: (){                      
+                  if(login.text == usuario.email && senha.text == usuario.senha){
+                    print('bem-vindo');
+                  }
+                  else
+                    print('erro');
+                  }                            
+              ),
+            ),            
+          ],
+        ),
+      ),
+    )
+      ),
       backgroundColor: Theme.of(context).backgroundColor,
     );
   }
