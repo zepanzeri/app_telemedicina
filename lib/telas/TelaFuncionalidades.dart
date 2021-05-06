@@ -7,6 +7,7 @@ class TelaFuncionalidades extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Usuario usuario = ModalRoute.of(context).settings.arguments;
+    
 
     return Scaffold(
       appBar: PreferredSize(
@@ -20,9 +21,17 @@ class TelaFuncionalidades extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AvatarWidget('assets/images/user.png'),
+                  Column(
+                    children: [
+                      AvatarWidget('assets/images/user.png'),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('Bem vindo(a),\n${usuario.nome}',style: TextStyle(fontSize: 22, color: Theme.of(context).primaryColor),),
+                      )
+                    ],
+                  ),
                 ],
-              ),
+              ),              
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SizedBox(
@@ -34,7 +43,9 @@ class TelaFuncionalidades extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
-                        '/tela_especialidades');
+                        '/tela_especialidades',
+                        arguments: usuario
+                      );
                     },
                   ),
                 ),
@@ -50,7 +61,7 @@ class TelaFuncionalidades extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          '/tela_criar_conta');
+                          '/tela_agendamentos');
                       }),
                 ),
               ),
@@ -67,7 +78,7 @@ class TelaFuncionalidades extends StatelessWidget {
                         Navigator.popUntil(context, (route) => route.isFirst);
                       }),
                 ),
-              ),
+              ),              
             ],
           ),
         ),

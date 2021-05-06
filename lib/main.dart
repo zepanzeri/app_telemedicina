@@ -1,3 +1,4 @@
+import 'package:app_telemedicina/telas/TelaAgendamentos.dart';
 import 'package:app_telemedicina/telas/TelaCriarConta.dart';
 import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
 import 'package:app_telemedicina/telas/TelaFuncionalidades.dart';
@@ -44,6 +45,7 @@ void main() {
       '/tela_sobre': (context) => TelaSobre(),
       '/tela_funcionalidades': (context) => TelaFuncionalidades(),
       '/tela_especialidades': (context) => TelaEspecialidades(),
+      '/tela_agendamentos': (context) => TelaAgendamentos(),
     },
   ));
 }

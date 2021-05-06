@@ -3,9 +3,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class Usuario {
-  String email;
-  String nome;
-  String senha;
+  final String email;
+  final String nome;
+  final String senha;
   Usuario(this.email, this.nome, this.senha);
 }
 
