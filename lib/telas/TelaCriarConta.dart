@@ -26,7 +26,8 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50), child: AppBarWidget('Criar conta')),
+          preferredSize: Size.fromHeight(50),
+          child: AppBarWidget('Criar conta')),
       body: SingleChildScrollView(
           child: Align(
         alignment: Alignment.center,
@@ -99,10 +100,12 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     onPressed: () {
                       if (registerFormKey.currentState.validate()) {
                         setState(() {
-                          var user = Usuario(
-                          this.email.text, this.nome.text, this.senha.text);
-                          print(user.nome + user.email + user.senha);
-                          Navigator.pushNamed(context, '/tela_login', arguments: user);
+                          var usuario = Usuario(
+                              this.email.text, this.nome.text, this.senha.text);
+                          print(usuario.nome + usuario.email + usuario.senha);
+                          dialogBox(
+                              'Bem vindo(a), ${usuario.nome}!\n\nVocê já pode realizar o login com sua conta.',
+                              usuario);
                         });
                       }
                     },
@@ -117,29 +120,23 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
     );
   }
 
-  // dialogBox() {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Conta criada'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Text('Bem vindo(a), ${nome.text}.'),
-  //             Text('Sua conta foi criada com sucesso!')
-  //           ],
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             child: Text('Fechar'),
-  //             onPressed: () {
-  //               Navigator.pop;
-  //             },
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  dialogBox(String msg, Usuario usuario) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Conta criada'),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              child: Text('Fechar'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/tela_login', arguments: usuario);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 }

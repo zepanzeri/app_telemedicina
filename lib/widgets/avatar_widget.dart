@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class DevAvatarWidget extends StatefulWidget {
+class AvatarWidget extends StatefulWidget {
+  final String imageUrl;
+  AvatarWidget(this.imageUrl);
+
   @override
-  _DevAvatarWidgetState createState() => _DevAvatarWidgetState();
+  _AvatarWidgetState createState() => _AvatarWidgetState();
 }
 
-class _DevAvatarWidgetState extends State<DevAvatarWidget> {
+class _AvatarWidgetState extends State<AvatarWidget> {
   double _width = 100;
   double _height = 100;
   bool _isClicked = false;
@@ -36,7 +39,7 @@ class _DevAvatarWidgetState extends State<DevAvatarWidget> {
             curve: Curves.easeIn,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/jose.jpg')),
+                    image: AssetImage(widget.imageUrl)),
                 borderRadius: BorderRadius.circular(120),
                 border: Border.all(
                   color: Theme.of(context).primaryColor,

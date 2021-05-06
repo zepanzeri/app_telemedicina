@@ -1,4 +1,6 @@
 import 'package:app_telemedicina/telas/TelaCriarConta.dart';
+import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
+import 'package:app_telemedicina/telas/TelaFuncionalidades.dart';
 import 'package:app_telemedicina/telas/TelaLogin.dart';
 import 'package:app_telemedicina/telas/TelaSobre.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,9 @@ void main() {
       '/tela_principal': (context) => TelaPrincipal(),
       '/tela_login': (context) => TelaLogin(),
       '/tela_criar_conta': (context) => TelaCriarConta(),
-      '/tela_sobre': (context) => TelaSobre()
+      '/tela_sobre': (context) => TelaSobre(),
+      '/tela_funcionalidades': (context) => TelaFuncionalidades(),
+      '/tela_especialidades': (context) => TelaEspecialidades(),
     },
   ));
 }
