@@ -1,4 +1,5 @@
 import 'package:app_telemedicina/telas/TelaCriarConta.dart';
+import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -16,6 +17,15 @@ class TelaEspecialidades extends StatelessWidget {
     List<String> especialidades = ['Clinico geral', 'Psicólogo', 'Nutricionista', 'Educador físico'];
 
     return Scaffold(
+      drawer: SideDrawerWidget(),
+      appBar: AppBar(title: Text('Agendamento de consulta', style: Theme.of(context).textTheme.headline1),
+        leading: Builder(
+          builder: (context)=>IconButton(
+            icon: Icon(Icons.menu),
+            color: Colors.white,
+            onPressed: () => Scaffold.of(context).openDrawer()),
+        ),     
+      ),
       body: Center(
         child:Padding(
           padding: EdgeInsets.all(60),
@@ -27,14 +37,20 @@ class TelaEspecialidades extends StatelessWidget {
                 child: InkWell(
                   onTap: ()=>{
                     DatePicker.showDateTimePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime.now(),
-                              onConfirm: (DateTime date) {
-                                Agendamento agenda = new Agendamento(usuario.nome,especialidades[index],date);
-                                Navigator.pushNamed(context, '/tela_agendamentos', arguments: agenda);
-                              },
-                              currentTime: DateTime.now(),
-                              locale: LocaleType.pt)
+                      showTitleActions: true,
+                      minTime: DateTime.now(),
+                      currentTime: DateTime.now(),
+                      locale: LocaleType.pt,
+                      theme: DatePickerTheme(
+                        backgroundColor: Theme.of(context).backgroundColor,
+                        itemStyle: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+                        cancelStyle: TextStyle(color: Colors.red[300])
+                      ),
+                      onConfirm: (DateTime date) {
+                        Agendamento agenda = new Agendamento(usuario.nome,especialidades[index], date);
+                        Navigator.pushNamed(context, '/tela_agendamentos', arguments: agenda);
+                      },                              
+                    )
                   },
                   child: Card(
                     elevation: 5,

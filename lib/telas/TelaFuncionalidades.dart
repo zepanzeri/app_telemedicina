@@ -1,6 +1,6 @@
 import 'package:app_telemedicina/telas/TelaCriarConta.dart';
-import 'package:app_telemedicina/widgets/app_bar_widget.dart';
 import 'package:app_telemedicina/widgets/avatar_widget.dart';
+import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 class TelaFuncionalidades extends StatelessWidget {
@@ -10,8 +10,15 @@ class TelaFuncionalidades extends StatelessWidget {
     
 
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50), child: AppBarWidget('Serviços')),
+      drawer: SideDrawerWidget(),
+      appBar: AppBar(title: Text('', style: Theme.of(context).textTheme.headline1),
+      leading: Builder(
+        builder: (context)=>IconButton(
+        icon: Icon(Icons.menu),
+        color: Colors.white,
+        onPressed: () => Scaffold.of(context).openDrawer()),
+      ),     
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(60),

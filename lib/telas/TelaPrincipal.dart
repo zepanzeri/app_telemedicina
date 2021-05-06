@@ -10,6 +10,14 @@ class TelaPrincipal extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+               Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  height: 250,
+                  width: 250,
+                  child: Image.asset('assets/images/logo.png')
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SizedBox(
