@@ -1,3 +1,4 @@
+import 'package:app_telemedicina/Model/Paciente.dart';
 import 'package:app_telemedicina/telas/TelaCriarConta.dart';
 import 'package:app_telemedicina/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
   @override
   Widget build(BuildContext context) {
-    final Usuario usuario = ModalRoute.of(context).settings.arguments;
+    var paciente = ModalRoute.of(context)?.settings.arguments;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -42,7 +43,7 @@ class _TelaLoginState extends State<TelaLogin> {
                 child: TextFormField(
                   obscureText: true,
                   controller: senha,
-                  validator: (var senha) => senha.isEmpty  ? 'Informe sua senha' : null,
+                  validator: (var senha) => senha!.isEmpty  ? 'Informe sua senha' : null,
                   decoration: InputDecoration(
                     labelText: 'Senha',
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
@@ -55,20 +56,20 @@ class _TelaLoginState extends State<TelaLogin> {
                   style: Theme.of(context).elevatedButtonTheme.style,
                   child: Text('Entrar'),
                   onPressed: () {
-                    if (login.text == usuario.email && senha.text == usuario.senha)
-                      Navigator.pushNamed(context, '/tela_funcionalidades',arguments: usuario);
-                     else{
-                      showDialog(context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: Text('Erro'),
-                          content: Text('Credenciais inválidas.'),
-                          actions: [
-                            TextButton(
-                              child: Text('Fechar'),
-                              onPressed: () => Navigator.pop(context),
-                            )
-                          ],
-                        ));}
+                    // if (login.text == paciente.email && senha.text == paciente.senha)
+                    //   Navigator.pushNamed(context, '/tela_funcionalidades',arguments: paciente);
+                    //  else{
+                    //   showDialog(context: context,
+                    //     builder: (BuildContext context) => AlertDialog(
+                    //       title: Text('Erro'),
+                    //       content: Text('Credenciais inválidas.'),
+                    //       actions: [
+                    //         TextButton(
+                    //           child: Text('Fechar'),
+                    //           onPressed: () => Navigator.pop(context),
+                    //         )
+                    //       ],
+                    //     ));}
                   }
                 ),
               ),

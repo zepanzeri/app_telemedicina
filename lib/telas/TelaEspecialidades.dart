@@ -1,19 +1,13 @@
-import 'package:app_telemedicina/telas/TelaCriarConta.dart';
+import 'package:app_telemedicina/Model/Agendamento.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-class Agendamento{
-  final String nome;
-  final String especialidade;
-  final DateTime data;
-  Agendamento(this.nome, this.especialidade, this.data);
-}
 
 class TelaEspecialidades extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Usuario usuario = ModalRoute.of(context).settings.arguments;
+    var paciente = ModalRoute.of(context)?.settings.arguments;
     List<String> especialidades = ['Clinico geral', 'Psicólogo', 'Nutricionista', 'Educador físico'];
 
     return Scaffold(
@@ -47,8 +41,8 @@ class TelaEspecialidades extends StatelessWidget {
                         cancelStyle: TextStyle(color: Colors.red[300])
                       ),
                       onConfirm: (DateTime date) {
-                        Agendamento agenda = new Agendamento(usuario.nome,especialidades[index], date);
-                        Navigator.pushNamed(context, '/tela_agendamentos', arguments: agenda);
+                       // Agendamento agenda = new Agendamento(paciente.nome,especialidades[index], date);
+                      // Navigator.pushNamed(context, '/tela_agendamentos', arguments: agenda);
                       },                              
                     )
                   },

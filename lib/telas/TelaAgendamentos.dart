@@ -1,3 +1,4 @@
+import 'package:app_telemedicina/Model/Agendamento.dart';
 import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,14 @@ class TelaAgendamentos extends StatefulWidget {
 }
 
 class _TelaAgendamentosState extends State<TelaAgendamentos> {
-  Agendamento agenda;
+  late Agendamento agenda;
   final fmt = new DateFormat("dd/MM/yyyy hh:mm");
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
       setState(() {
-        agenda = ModalRoute.of(context).settings.arguments;
+        var agenda = ModalRoute.of(context)?.settings.arguments;
       });
     });
     super.initState();

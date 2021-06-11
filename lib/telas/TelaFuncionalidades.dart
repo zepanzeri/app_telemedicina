@@ -1,4 +1,4 @@
-import 'package:app_telemedicina/telas/TelaCriarConta.dart';
+import 'package:app_telemedicina/Model/Paciente.dart';
 import 'package:app_telemedicina/widgets/avatar_widget.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class TelaFuncionalidades extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Usuario usuario = ModalRoute.of(context).settings.arguments;
+   var paciente = ModalRoute.of(context)?.settings.arguments;
     
 
     return Scaffold(
@@ -33,7 +33,7 @@ class TelaFuncionalidades extends StatelessWidget {
                       AvatarWidget('assets/images/user.png'),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text('Bem vindo(a),\n${usuario.nome}',style: TextStyle(fontSize: 22, color: Theme.of(context).primaryColor),),
+                        child: Text('Bem vindo(a)',style: TextStyle(fontSize: 22, color: Theme.of(context).primaryColor),),
                       )
                     ],
                   ),
@@ -51,7 +51,7 @@ class TelaFuncionalidades extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         '/tela_especialidades',
-                        arguments: usuario
+                        arguments: paciente
                       );
                     },
                   ),
