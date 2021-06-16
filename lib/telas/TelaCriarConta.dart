@@ -5,15 +5,12 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-
 class TelaCriarConta extends StatefulWidget {
   @override
   _TelaCriarContaState createState() => _TelaCriarContaState();
 }
 
 class _TelaCriarContaState extends State<TelaCriarConta> {
-  var test = "teste";
   var nome = TextEditingController();
   var email = TextEditingController();
   var senha = TextEditingController();
@@ -98,38 +95,8 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     child: Text('Criar conta'),
                     onPressed: () {
                       if (registerFormKey.currentState!.validate()) {
-                        setState(() {
-                          Paciente novoPaciente = new Paciente(
-                              this.email.text, this.nome.text, this.senha.text);
-                          FirebaseAuth.instance.createUserWithEmailAndPassword(email: novoPaciente.email, password: novoPaciente.senha).then((value){
-                            var db = FirebaseFirestore.instance;
-                            db.collection('pacientes').doc(value.user!.uid).set(
-                              {
-                                'nome' : novoPaciente.nome,
-                                'email' : novoPaciente.email,
-                                'senha' : novoPaciente.senha
-                              }
-                            ).then((value){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content:Text('Cadastro realizado com sucesso'),
-                                  duration: Duration(seconds: 3)
-                                )
-                              );
-                            });
-                          }).catchError((erro){
-                            if(erro == 'email-already-in-use'){
-                              SnackBar(
-                                content:Text('E-mail já cadastrado'),
-                                duration: Duration(seconds: 3)
-                              );
-                            }else{
-                              SnackBar(
-                                content:Text('Erro: ${erro.message}'),
-                                duration: Duration(seconds: 3)
-                              );
-                            }
-                          });
+                        setState(() {                                                
+                          criarConta(this.nome.text, this.email.text, this.senha.text);
                         });
                       }
                     },
@@ -144,23 +111,30 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
     );
   }
 
-  // dialogBox(String msg, Paciente novoPaciente) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Conta criada'),
-  //         content: Text(msg),
-  //         actions: [
-  //           TextButton(
-  //             child: Text('Fechar'),
-  //             onPressed: () {
-  //               Navigator.pushNamed(context, '/tela_login', arguments: novoPaciente);
-  //             },
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  void criarConta(nome, email, senha) {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: senha)
+        .then((value) {
+      var db = FirebaseFirestore.instance;
+      db.collection('pacientes').doc(value.user!.uid).set({
+        'nome': nome,
+        'email': email,
+      }).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Cadastro realizado com sucesso'),
+            duration: Duration(seconds: 3)));
+        Navigator.pop(context);
+      });
+    }).catchError((erro) {
+      if (erro.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('E-mail já cadastrado'),
+            duration: Duration(seconds: 3)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Erro: ${erro.message}'),
+            duration: Duration(seconds: 3)));
+      }
+    });
+  }
 }

@@ -1,13 +1,22 @@
 import 'package:app_telemedicina/Model/Agendamento.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 
-class TelaEspecialidades extends StatelessWidget {
+class TelaEspecialidades extends StatefulWidget {
+  @override
+  _TelaEspecialidadesState createState() => _TelaEspecialidadesState();
+}
+
+class _TelaEspecialidadesState extends State<TelaEspecialidades> {
   @override
   Widget build(BuildContext context) {
-    var paciente = ModalRoute.of(context)?.settings.arguments;
+    late String idPaciente = FirebaseAuth.instance.currentUser!.uid;
+    print(idPaciente);
+
     List<String> especialidades = ['Clinico geral', 'Psicólogo', 'Nutricionista', 'Educador físico'];
 
     return Scaffold(
@@ -41,8 +50,8 @@ class TelaEspecialidades extends StatelessWidget {
                         cancelStyle: TextStyle(color: Colors.red[300])
                       ),
                       onConfirm: (DateTime date) {
-                       // Agendamento agenda = new Agendamento(paciente.nome,especialidades[index], date);
-                      // Navigator.pushNamed(context, '/tela_agendamentos', arguments: agenda);
+                       Agendamento agenda = new Agendamento(idPaciente,especialidades[index], date.toString());
+                       criarAgendamento(agenda);
                       },                              
                     )
                   },
@@ -84,6 +93,21 @@ class TelaEspecialidades extends StatelessWidget {
         )
       ),
       backgroundColor: Theme.of(context).primaryColor,
-    );
-  }
+    );   
+  } 
+
+  void criarAgendamento(Agendamento agenda) {
+      var db = FirebaseFirestore.instance;
+      db.collection('agendamentos').add({
+        'idPaciente': agenda.idPaciente,
+        'especialidade' : agenda.especialidade,
+        'data': agenda.data
+      }).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Agendamento realizado com sucesso'),
+            duration: Duration(seconds: 3)));
+        Navigator.pop(context);
+      });
+  }    
+  
 }

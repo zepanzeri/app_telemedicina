@@ -1,14 +1,44 @@
 import 'package:app_telemedicina/Model/Paciente.dart';
 import 'package:app_telemedicina/widgets/avatar_widget.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class TelaFuncionalidades extends StatelessWidget {
+class TelaFuncionalidades extends StatefulWidget {
+
+ 
+  @override
+  _TelaFuncionalidadesState createState() => _TelaFuncionalidadesState();
+}
+
+late String userId = FirebaseAuth.instance.currentUser!.uid;
+   late String nomePaciente = '';
+
+    void getPaciente(String id)async{
+        await FirebaseFirestore.instance.collection("pacientes")
+        .doc(userId).get().then((value){
+          nomePaciente = value.get('nome');
+          print('Chamada da func $nomePaciente');
+        });
+    }
+
+class _TelaFuncionalidadesState extends State<TelaFuncionalidades> {
+   
+ @override
+  void initState() {
+    print('inicio init');
+    // TODO: implement initState
+    super.initState();
+    print('inicio super init');
+    getPaciente(userId);
+    print('fim init');
+  }
+
   @override
   Widget build(BuildContext context) {
-   var paciente = ModalRoute.of(context)?.settings.arguments;
-    
-
+    // var idPaciente = ModalRoute.of(context)?.settings.arguments;
+    print('Ola $nomePaciente');
     return Scaffold(
       drawer: SideDrawerWidget(),
       appBar: AppBar(title: Text('', style: Theme.of(context).textTheme.headline1),
@@ -51,7 +81,6 @@ class TelaFuncionalidades extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         '/tela_especialidades',
-                        arguments: paciente
                       );
                     },
                   ),

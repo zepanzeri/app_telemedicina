@@ -1,6 +1,5 @@
-import 'package:app_telemedicina/Model/Paciente.dart';
-import 'package:app_telemedicina/telas/TelaCriarConta.dart';
 import 'package:app_telemedicina/widgets/app_bar_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class TelaLogin extends StatefulWidget {
@@ -9,19 +8,17 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
-  var login = TextEditingController();
+  var email = TextEditingController();
   var senha = TextEditingController();
   var loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var paciente = ModalRoute.of(context)?.settings.arguments;
-
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50), child: AppBarWidget('Login')),
+          preferredSize: Size.fromHeight(50), child: AppBarWidget('Login')),
       body: SingleChildScrollView(
-        child: Align(
+          child: Align(
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(60),
@@ -30,11 +27,11 @@ class _TelaLoginState extends State<TelaLogin> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: TextFormField(
-                  controller: login,
-                  validator: (var value) => value == null ? 'Informe seu e-mail' : null,
+                  controller: email,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
               ),
@@ -43,35 +40,23 @@ class _TelaLoginState extends State<TelaLogin> {
                 child: TextFormField(
                   obscureText: true,
                   controller: senha,
-                  validator: (var senha) => senha!.isEmpty  ? 'Informe sua senha' : null,
                   decoration: InputDecoration(
-                    labelText: 'Senha',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+                      labelText: 'Senha',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20))),
                 ),
               ),
               SizedBox(
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style,
-                  child: Text('Entrar'),
-                  onPressed: () {
-                    // if (login.text == paciente.email && senha.text == paciente.senha)
-                    //   Navigator.pushNamed(context, '/tela_funcionalidades',arguments: paciente);
-                    //  else{
-                    //   showDialog(context: context,
-                    //     builder: (BuildContext context) => AlertDialog(
-                    //       title: Text('Erro'),
-                    //       content: Text('Credenciais inválidas.'),
-                    //       actions: [
-                    //         TextButton(
-                    //           child: Text('Fechar'),
-                    //           onPressed: () => Navigator.pop(context),
-                    //         )
-                    //       ],
-                    //     ));}
-                  }
-                ),
+                    style: Theme.of(context).elevatedButtonTheme.style,
+                    child: Text('Entrar'),
+                    onPressed: () {
+                      setState(() {
+                        loginPaciente(email.text, senha.text);
+                      });
+                    }),
               ),
             ],
           ),
@@ -79,5 +64,34 @@ class _TelaLoginState extends State<TelaLogin> {
       )),
       backgroundColor: Theme.of(context).backgroundColor,
     );
+  }
+
+  void loginPaciente(String email, String senha) {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: senha)
+        .then((value) => {
+              Navigator.pushReplacementNamed(context, '/tela_funcionalidades',)
+                  .catchError((erro) {
+                var mensagem = '';
+                var codigoErro = erro.code;
+                switch (codigoErro) {
+                  case 'user-not-found':
+                    mensagem = 'Erro: Usuario não encontrado';
+                    break;
+                  case 'wrong-password':
+                    mensagem = 'Erro: Senha inválida';
+                    break;
+                  case 'invalid-email':
+                    mensagem = 'Erro: E-mail inválido';
+                    break;
+                  default:
+                    mensagem = 'Erro: ${erro.message}';
+                }
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('$mensagem'),
+                  duration: Duration(seconds: 3),
+                ));
+              })
+            });
   }
 }

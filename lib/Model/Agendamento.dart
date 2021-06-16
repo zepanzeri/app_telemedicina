@@ -1,6 +1,21 @@
 class Agendamento{
-  late String nome;
+  late String idPaciente;
   late String especialidade;
-  late DateTime data;
-  Agendamento(this.nome, this.especialidade, this.data);
+  late String data;
+  Agendamento(this.idPaciente, this.especialidade, this.data);
+
+   Agendamento.fromJson(Map<String, dynamic> mapa, String id){
+    this.idPaciente = id;
+    this.especialidade= mapa['especialidade'];
+    this.data = mapa['data'];
+  }
+  
+  //Converter um OBJETO em um DOCUMENTO
+  Map<String,dynamic> toJson(){
+    return {
+      'id'    : this.idPaciente,
+      'email' : this.especialidade,
+      'nome'  : this.data,
+    };
+  }
 }
