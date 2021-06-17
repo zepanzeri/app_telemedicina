@@ -6,7 +6,7 @@ class SideDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        children:[
+        children: [
           DrawerHeader(
             child: Center(
               child: Text(
@@ -22,8 +22,9 @@ class SideDrawerWidget extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Menu principal'),
-            onTap: () => {Navigator.pushNamed(context, '/tela_funcionalidades')},
-          ),       
+            onTap: () =>
+                {Navigator.pushNamed(context, '/tela_funcionalidades')},
+          ),
           ListTile(
             leading: Icon(Icons.view_agenda),
             title: Text('Agendar consulta'),
@@ -37,10 +38,10 @@ class SideDrawerWidget extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
-            onTap: (){
+            onTap: () {
               FirebaseAuth.instance.signOut();
               Navigator.of(context).popUntil((route) => route.isFirst);
-              },
+            },
           ),
         ],
       ),

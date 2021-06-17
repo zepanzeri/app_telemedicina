@@ -38,8 +38,7 @@ class _AvatarWidgetState extends State<AvatarWidget> {
             height: _height,
             curve: Curves.easeIn,
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(widget.imageUrl)),
+                image: DecorationImage(image: AssetImage(widget.imageUrl)),
                 borderRadius: BorderRadius.circular(120),
                 border: Border.all(
                   color: Theme.of(context).primaryColor,

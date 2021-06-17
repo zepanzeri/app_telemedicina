@@ -70,8 +70,10 @@ class _TelaLoginState extends State<TelaLogin> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: senha)
         .then((value) => {
-              Navigator.pushReplacementNamed(context, '/tela_funcionalidades',)
-                  .catchError((erro) {
+              Navigator.pushReplacementNamed(
+                context,
+                '/tela_funcionalidades',
+              ).catchError((erro) {
                 var mensagem = '';
                 var codigoErro = erro.code;
                 switch (codigoErro) {

@@ -4,15 +4,12 @@ import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
 import 'package:app_telemedicina/telas/TelaFuncionalidades.dart';
 import 'package:app_telemedicina/telas/TelaLogin.dart';
 import 'package:app_telemedicina/telas/TelaSobre.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'telas/TelaPrincipal.dart';
 
 Future<void> main() async {
-
-  // registrar firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -37,12 +34,11 @@ Future<void> main() async {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue[300],           
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
+          primary: Colors.blue[300],
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
-      ),  
+      ),
     ),
     initialRoute: '/tela_principal',
     routes: {
