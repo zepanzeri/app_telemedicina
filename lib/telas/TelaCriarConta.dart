@@ -1,13 +1,9 @@
+import 'package:app_telemedicina/Model/Paciente.dart';
 import 'package:app_telemedicina/widgets/app_bar_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-class Usuario {
-  final String email;
-  final String nome;
-  final String senha;
-  Usuario(this.email, this.nome, this.senha);
-}
 
 class TelaCriarConta extends StatefulWidget {
   @override
@@ -20,7 +16,7 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
   var senha = TextEditingController();
   var senhaCheck = TextEditingController();
   var registerFormKey = GlobalKey<FormState>();
-  bool emailValidado;
+  late bool emailValidado;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +37,8 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: TextFormField(
                     controller: nome,
-                    validator: (String value) {
-                      if (value.isEmpty) return 'Insira um nome vádido.';
+                    validator: (String? value) {
+                      if (value!.isEmpty) return 'Insira um nome vádido.';
                       return null;
                     },
                     decoration: InputDecoration(
@@ -57,8 +53,8 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                     ),
-                    validator: (String value) {
-                      this.emailValidado = EmailValidator.validate(value);
+                    validator: (String? value) {
+                      this.emailValidado = EmailValidator.validate(value!);
                       return this.emailValidado
                           ? null
                           : 'Email com formato inválido.';
@@ -73,7 +69,7 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     decoration: InputDecoration(
                       labelText: 'Senha',
                     ),
-                    validator: (String value) => value.length <= 3
+                    validator: (String? value) => value!.length <= 3
                         ? 'Sua senha deve conter no minimo 4 dígitos.'
                         : null,
                   ),
@@ -86,7 +82,7 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     decoration: InputDecoration(
                       labelText: 'Confirme sua senha',
                     ),
-                    validator: (String value) => value != this.senha.text
+                    validator: (String? value) => value != this.senha.text
                         ? 'As senhas não conferem.'
                         : null,
                   ),
@@ -98,14 +94,9 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     style: Theme.of(context).elevatedButtonTheme.style,
                     child: Text('Criar conta'),
                     onPressed: () {
-                      if (registerFormKey.currentState.validate()) {
-                        setState(() {
-                          var usuario = Usuario(
-                              this.email.text, this.nome.text, this.senha.text);
-                          print(usuario.nome + usuario.email + usuario.senha);
-                          dialogBox(
-                              'Bem vindo(a), ${usuario.nome}!\n\nVocê já pode realizar o login com sua conta.',
-                              usuario);
+                      if (registerFormKey.currentState!.validate()) {
+                        setState(() {                                                
+                          criarConta(this.nome.text, this.email.text, this.senha.text);
                         });
                       }
                     },
@@ -120,23 +111,30 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
     );
   }
 
-  dialogBox(String msg, Usuario usuario) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Conta criada'),
-          content: Text(msg),
-          actions: [
-            TextButton(
-              child: Text('Fechar'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/tela_login', arguments: usuario);
-              },
-            )
-          ],
-        );
-      },
-    );
+  void criarConta(nome, email, senha) {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: senha)
+        .then((value) {
+      var db = FirebaseFirestore.instance;
+      db.collection('pacientes').doc(value.user!.uid).set({
+        'nome': nome,
+        'email': email,
+      }).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Cadastro realizado com sucesso'),
+            duration: Duration(seconds: 3)));
+        Navigator.pop(context);
+      });
+    }).catchError((erro) {
+      if (erro.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('E-mail já cadastrado'),
+            duration: Duration(seconds: 3)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Erro: ${erro.message}'),
+            duration: Duration(seconds: 3)));
+      }
+    });
   }
 }
