@@ -28,7 +28,8 @@ class TelaSobre extends StatelessWidget {
                         'Olá, me chamo José Henrique Panzeri Juns.\n\n' +
                             'Atualmente estou cursando Análise e Desenvolvimento de Sistemas na Fatec Ribeirão Preto.',
                         style: TextStyle(
-                            fontSize: 16, color: Theme.of(context).primaryColor)),
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor)),
                   ),
                 ),
               ),
@@ -48,7 +49,8 @@ class TelaSobre extends StatelessWidget {
                             'Com o uso da telemedicina ambos paciente e médico podem se comunicar sem a necessidade de estar presencialmente em um consultório.\n\n' +
                             'Com base na comunicação, o médico pode determinar se é necessário a realizar um diagnóstico mais detalhado ou procedimento de forma presencial, porém dependendo dos sintomas do paciente, ou da especialidade médica, como psicólogos, nutricionistas, entre outros, a consulta pode ser feita de forma totalmente remota e com geração de atestados, receitas médicas, e inclusive, no cenário atual, evitar a exposição dos médicos e pacientes ao vírus COVID-19.',
                         style: TextStyle(
-                            fontSize: 16, color: Theme.of(context).primaryColor)),
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor)),
                   ),
                 ),
               ),

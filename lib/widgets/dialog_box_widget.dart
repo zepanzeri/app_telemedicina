@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class DialogBoxWidget extends StatelessWidget {
   final String titulo;
   final String texto;
@@ -14,7 +13,7 @@ class DialogBoxWidget extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(this.texto),       
+          Text(this.texto),
         ],
       ),
       actions: [

@@ -11,13 +11,12 @@ class TelaPrincipal extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
-                    height: 250,
-                    width: 250,
-                    child: Image.asset('assets/images/logo.png')
-                  ),
+                      height: 250,
+                      width: 250,
+                      child: Image.asset('assets/images/logo.png')),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -28,14 +27,11 @@ class TelaPrincipal extends StatelessWidget {
                       child: Text('Login'),
                       style: Theme.of(context).elevatedButtonTheme.style,
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/tela_login');
+                        Navigator.pushNamed(context, '/tela_login');
                       },
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
@@ -44,13 +40,10 @@ class TelaPrincipal extends StatelessWidget {
                     child: ElevatedButton(
                         child: Text('Criar conta'),
                         onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/tela_criar_conta');
+                          Navigator.pushNamed(context, '/tela_criar_conta');
                         }),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
@@ -59,9 +52,7 @@ class TelaPrincipal extends StatelessWidget {
                     child: ElevatedButton(
                         child: Text('Sobre'),
                         onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/tela_sobre');
+                          Navigator.pushNamed(context, '/tela_sobre');
                         }),
                   ),
                 ),

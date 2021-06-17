@@ -1,6 +1,7 @@
 import 'package:app_telemedicina/Model/Agendamento.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +13,8 @@ class TelaAgendamentos extends StatefulWidget {
 
 class _TelaAgendamentosState extends State<TelaAgendamentos> {
   late CollectionReference agendamentos;
-  final formatoData = new DateFormat("dd/MM/yyyy hh:mm");
+  late String idPaciente = FirebaseAuth.instance.currentUser!.uid;
+  final formatoData = new DateFormat("dd/MM/yyyy HH:mm");
 
   @override
   void initState() {
@@ -64,9 +66,7 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
   }
 
   Widget exibirAgendamento(item, BuildContext context) {
-    //Converter um DOCUMENTO em um OBJETO
     Agendamento agendamento = Agendamento.fromJson(item.data(), item.id);
-
     return Container(
       padding: EdgeInsets.all(5),
       child: ListTile(

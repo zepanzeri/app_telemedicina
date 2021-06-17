@@ -11,7 +11,6 @@ class Agendamento{
     this.data = mapa['data'];
   }
   
-  //Converter um OBJETO em um DOCUMENTO
   Map<String,dynamic> toJson(){
     return {
       'id': this.id,

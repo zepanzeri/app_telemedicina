@@ -1,4 +1,3 @@
-import 'package:app_telemedicina/Model/Paciente.dart';
 import 'package:app_telemedicina/widgets/app_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
@@ -95,8 +94,9 @@ class _TelaCriarContaState extends State<TelaCriarConta> {
                     child: Text('Criar conta'),
                     onPressed: () {
                       if (registerFormKey.currentState!.validate()) {
-                        setState(() {                                                
-                          criarConta(this.nome.text, this.email.text, this.senha.text);
+                        setState(() {
+                          criarConta(
+                              this.nome.text, this.email.text, this.senha.text);
                         });
                       }
                     },
