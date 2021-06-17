@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 
 class TelaEspecialidades extends StatefulWidget {
@@ -16,7 +17,7 @@ class _TelaEspecialidadesState extends State<TelaEspecialidades> {
   Widget build(BuildContext context) {
     late String idPaciente = FirebaseAuth.instance.currentUser!.uid;
     print(idPaciente);
-
+    final formatoData = new DateFormat('dd/MM/yyyy hh:mm');
     List<String> especialidades = ['Clinico geral', 'Psicólogo', 'Nutricionista', 'Educador físico'];
 
     return Scaffold(
@@ -50,7 +51,8 @@ class _TelaEspecialidadesState extends State<TelaEspecialidades> {
                         cancelStyle: TextStyle(color: Colors.red[300])
                       ),
                       onConfirm: (DateTime date) {
-                       Agendamento agenda = new Agendamento(idPaciente,especialidades[index], date.toString());
+                      String dataFormatada = formatoData.format(date);
+                       Agendamento agenda = new Agendamento(idPaciente,especialidades[index], dataFormatada.toString());
                        criarAgendamento(agenda);
                       },                              
                     )
@@ -103,11 +105,15 @@ class _TelaEspecialidadesState extends State<TelaEspecialidades> {
         'especialidade' : agenda.especialidade,
         'data': agenda.data
       }).then((value) {
+        db.collection('agendamentos').doc(value.id).update(
+          {
+            'id': value.id
+          }
+        );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Agendamento realizado com sucesso'),
             duration: Duration(seconds: 3)));
         Navigator.pop(context);
       });
-  }    
-  
+  }      
 }

@@ -5,6 +5,7 @@ import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
 class TelaAgendamentos extends StatefulWidget {
@@ -14,7 +15,7 @@ class TelaAgendamentos extends StatefulWidget {
 
 class _TelaAgendamentosState extends State<TelaAgendamentos> {
   late CollectionReference agendamentos;
-  final fmt = new DateFormat("dd/MM/yyyy hh:mm");
+  final formatoData = new DateFormat("dd/MM/yyyy hh:mm");
 
   @override
   void initState() {
@@ -51,10 +52,10 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
                 default:
                   final dados = snapshot.requireData;
 
-                  return ListView.builder(
+                  return ListView.builder(                    
                       itemCount: dados.size,
                       itemBuilder: (context, index) {
-                        return exibirAgendamento(dados.docs[index]);
+                        return exibirAgendamento(dados.docs[index], context);
                       });
               }
             },
@@ -65,7 +66,7 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
     );
   }
 
-  Widget exibirAgendamento(item) {
+  Widget exibirAgendamento(item, BuildContext context) {
     //Converter um DOCUMENTO em um OBJETO
     Agendamento agendamento = Agendamento.fromJson(item.data(), item.id);
 
@@ -76,17 +77,40 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
         subtitle: Text('${agendamento.data}', style: TextStyle(fontSize: 22)),
         trailing: IconButton(
           icon: Icon(Icons.delete),
-          onPressed: () {
-            //
-            // Apagar um documento
-            //
-            //cafes.doc(cafe.id).delete();
+          onPressed: () {          
+            agendamentos.doc(agendamento.id).delete();
           },
         ),
-        onTap: () {
-          //Navigator.pushNamed(context,'/cadastro', arguments:cafe.id);
+        onTap: ()=>{        
+
+
+          
+            DatePicker.showDateTimePicker(context,
+                      showTitleActions: true,
+                      minTime: DateTime.now(),
+                      currentTime: DateTime.now(),
+                      locale: LocaleType.pt,
+                      theme: DatePickerTheme(
+                        backgroundColor: Theme.of(context).backgroundColor,
+                        itemStyle: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+                        cancelStyle: TextStyle(color: Colors.red[300])
+                      ),
+                      onConfirm: (DateTime date) {
+                      String dataFormatada = formatoData.format(date);
+                       atualizaAgendamento(agendamento.id, dataFormatada);
+                      },                              
+                    )
+   
+                       
         },
       ),
     );
   }
+
+  void atualizaAgendamento(String id, String novaData) {
+      var db = FirebaseFirestore.instance;
+      db.collection('agendamentos').doc(id).update({
+       'data' : novaData
+      });
+  }      
 }
