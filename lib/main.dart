@@ -49,7 +49,7 @@ Future<void> main() async {
       '/tela_principal': (context) => TelaPrincipal(),
       '/tela_login': (context) => TelaLogin(),
       '/tela_criar_conta': (context) => TelaCriarConta(),
-      //'/tela_sobre': (context) => TelaSobre(),
+      '/tela_sobre': (context) => TelaSobre(),
       '/tela_funcionalidades': (context) => TelaFuncionalidades(),
       '/tela_especialidades': (context) => TelaEspecialidades(),
       '/tela_agendamentos': (context) => TelaAgendamentos(),

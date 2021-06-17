@@ -1,7 +1,4 @@
-import 'dart:js';
-
 import 'package:app_telemedicina/Model/Agendamento.dart';
-import 'package:app_telemedicina/telas/TelaEspecialidades.dart';
 import 'package:app_telemedicina/widgets/side_drawer_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +49,7 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
                 default:
                   final dados = snapshot.requireData;
 
-                  return ListView.builder(                    
+                  return ListView.builder(
                       itemCount: dados.size,
                       itemBuilder: (context, index) {
                         return exibirAgendamento(dados.docs[index], context);
@@ -77,40 +74,51 @@ class _TelaAgendamentosState extends State<TelaAgendamentos> {
         subtitle: Text('${agendamento.data}', style: TextStyle(fontSize: 22)),
         trailing: IconButton(
           icon: Icon(Icons.delete),
-          onPressed: () {          
-            agendamentos.doc(agendamento.id).delete();
+          onPressed: () {
+            deletaAgendamento(agendamentos, agendamento.id, context);
           },
         ),
-        onTap: ()=>{        
-
-
-          
-            DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(),
-                      currentTime: DateTime.now(),
-                      locale: LocaleType.pt,
-                      theme: DatePickerTheme(
-                        backgroundColor: Theme.of(context).backgroundColor,
-                        itemStyle: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
-                        cancelStyle: TextStyle(color: Colors.red[300])
-                      ),
-                      onConfirm: (DateTime date) {
-                      String dataFormatada = formatoData.format(date);
-                       atualizaAgendamento(agendamento.id, dataFormatada);
-                      },                              
-                    )
-   
-                       
+        onTap: () => {
+          DatePicker.showDateTimePicker(
+            context,
+            showTitleActions: true,
+            minTime: DateTime.now(),
+            currentTime: DateTime.now(),
+            locale: LocaleType.pt,
+            theme: DatePickerTheme(
+                backgroundColor: Theme.of(context).backgroundColor,
+                itemStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold),
+                cancelStyle: TextStyle(color: Colors.red[300])),
+            onConfirm: (DateTime date) {
+              String dataFormatada = formatoData.format(date);
+              atualizaAgendamento(agendamento.id, dataFormatada, context);
+            },
+          )
         },
       ),
     );
   }
 
-  void atualizaAgendamento(String id, String novaData) {
-      var db = FirebaseFirestore.instance;
-      db.collection('agendamentos').doc(id).update({
-       'data' : novaData
-      });
-  }      
+  void atualizaAgendamento(String id, String novaData, BuildContext context) {
+    var db = FirebaseFirestore.instance;
+    db
+        .collection('agendamentos')
+        .doc(id)
+        .update({'data': novaData}).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Data do agendamento atualizada'),
+          duration: Duration(seconds: 3)));
+    });
+  }
+
+  void deletaAgendamento(
+      CollectionReference agendamentos, String id, BuildContext context) {
+    agendamentos.doc(id).delete().then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Agendamento cancelado'),
+          duration: Duration(seconds: 3)));
+    });
+  }
 }
